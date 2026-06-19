@@ -17,15 +17,7 @@ The implementation is intentionally scoped to one polished workflow: open the ap
 
 ## Screenshots
 
-Add a current screenshot or short GIF of the Expo web preview here before sharing the repository publicly.
-
-Suggested capture:
-
-```bash
-npm run web
-```
-
-Then capture the workspace screen showing the search bar, segmented filters, sync state, and item list.
+![CodeSync Office Mobile workspace screen](docs/assets/codesync-office-mobile.png)
 
 ## Key Skills Showcased
 
