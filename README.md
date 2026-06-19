@@ -15,6 +15,18 @@ The app presents an office-style workspace with:
 
 The implementation is intentionally scoped to one polished workflow: open the app, sync workspace items, search or filter the list, and continue seeing useful cached content when the API cannot be reached.
 
+## Screenshots
+
+Add a current screenshot or short GIF of the Expo web preview here before sharing the repository publicly.
+
+Suggested capture:
+
+```bash
+npm run web
+```
+
+Then capture the workspace screen showing the search bar, segmented filters, sync state, and item list.
+
 ## Key Skills Showcased
 
 ### React Native Application Development
@@ -224,13 +236,15 @@ The project uses local React state because the product scope is deliberately foc
 
 This keeps state flow easy to inspect while still separating reusable logic into pure domain modules.
 
-## Tradeoffs
+## Design Decisions
 
 - Expo was chosen to reduce setup friction and make the project easy to run on mobile or web.
 - Local React state was chosen over a global store because the current workflow does not need cross-screen coordination.
 - AsyncStorage provides offline read support, but the app does not implement background sync, write queues, or conflict resolution.
 - The API boundary is flexible enough for a real notes API, but the app intentionally does not include a backend implementation.
 - Unit tests focus on core behavior rather than visual snapshots, which keeps the test suite stable and meaningful.
+
+These choices keep the project small enough to explain in an interview while still showing practical cross-platform product engineering decisions: a typed API boundary, explicit offline fallback, isolated business logic, and CI-backed verification.
 
 ## Verification
 
@@ -241,6 +255,8 @@ npx expo install --check
 npm run typecheck
 npm run test
 ```
+
+GitHub Actions runs `npm run typecheck` and `npm run test` on pushes to `main` and pull requests.
 
 Expected test coverage:
 
