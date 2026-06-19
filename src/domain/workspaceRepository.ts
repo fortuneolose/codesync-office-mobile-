@@ -26,16 +26,32 @@ export type LoadWorkspaceResult =
       errorMessage: string;
     };
 
+async function writeCache(cache: WorkspaceCache, items: WorkspaceItem[]) {
+  try {
+    await cache.write(items);
+  } catch {
+    // Cache persistence should not block freshly loaded network data.
+  }
+}
+
+async function readCache(cache: WorkspaceCache) {
+  try {
+    return await cache.read();
+  } catch {
+    return [];
+  }
+}
+
 export async function loadWorkspaceItems(
   client: WorkspaceClient,
   cache: WorkspaceCache
 ): Promise<LoadWorkspaceResult> {
   try {
     const items = await client.listItems();
-    await cache.write(items);
+    await writeCache(cache, items);
     return { source: "network", items };
   } catch (error) {
-    const cachedItems = await cache.read();
+    const cachedItems = await readCache(cache);
     const errorMessage = error instanceof Error ? error.message : "Unable to load workspace items.";
 
     if (cachedItems.length > 0) {

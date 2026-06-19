@@ -35,6 +35,21 @@ describe("loadWorkspaceItems", () => {
     expect(cache.write).toHaveBeenCalledWith([item]);
   });
 
+  it("returns network items when cache persistence fails", async () => {
+    const client: WorkspaceClient = { listItems: vi.fn(async () => [item]) };
+    const cache: WorkspaceCache = {
+      read: vi.fn(async () => []),
+      write: vi.fn(async () => {
+        throw new Error("Storage full");
+      })
+    };
+
+    await expect(loadWorkspaceItems(client, cache)).resolves.toEqual({
+      source: "network",
+      items: [item]
+    });
+  });
+
   it("returns cached items when the API fails", async () => {
     const client: WorkspaceClient = {
       listItems: vi.fn(async () => {
@@ -62,6 +77,26 @@ describe("loadWorkspaceItems", () => {
       source: "empty",
       items: [],
       errorMessage: "Unauthorized"
+    });
+  });
+
+  it("returns an empty state when the API and cache read both fail", async () => {
+    const client: WorkspaceClient = {
+      listItems: vi.fn(async () => {
+        throw new Error("Gateway timeout");
+      })
+    };
+    const cache: WorkspaceCache = {
+      read: vi.fn(async () => {
+        throw new Error("Storage unavailable");
+      }),
+      write: vi.fn()
+    };
+
+    await expect(loadWorkspaceItems(client, cache)).resolves.toEqual({
+      source: "empty",
+      items: [],
+      errorMessage: "Gateway timeout"
     });
   });
 });

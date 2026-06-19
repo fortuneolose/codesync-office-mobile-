@@ -120,8 +120,10 @@ Vitest tests cover the important non-visual behavior:
 - newest-first sorting
 - counts for segmented filters
 - network success with cache write
+- network success when cache write fails
 - API failure with cached fallback
 - API failure with empty fallback
+- API failure when cache read also fails
 
 The tests focus on the logic most likely to regress and avoid brittle snapshot testing for visual components.
 
@@ -262,5 +264,5 @@ Expected test coverage:
 
 ```text
 2 test files
-7 tests
+9 tests
 ```
