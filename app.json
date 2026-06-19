@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "CodeSync Office",
+    "slug": "codesync-office",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "codesyncoffice",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#f8fafc"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "extra": {
+      "notesApiUrl": "http://localhost:8000/api"
+    }
+  }
+}
